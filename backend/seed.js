@@ -30,7 +30,7 @@ const seedProducts = [
     price: 99.99,
     discount: 10,
     category: "Electronics",
-    images: ["https://images.unsplash.com/photo-1589492477829-5e65395b66ea?auto=format&fit=crop&w=500"]
+    images: ["https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=500"]
   },
   {
     name: "Classic Aviator Sunglasses",

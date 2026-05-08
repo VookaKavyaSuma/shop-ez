@@ -7,6 +7,7 @@ import Checkout from './pages/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Orders from './pages/Orders';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation/:id" element={<OrderConfirmation />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

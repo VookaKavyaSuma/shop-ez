@@ -74,4 +74,24 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// Delete an order
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ msg: 'Order not found' });
+    }
+    // Make sure user owns the order
+    if (order.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+    
+    await Order.findByIdAndDelete(req.params.id);
+    res.json({ msg: 'Order removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

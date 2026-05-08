@@ -54,6 +54,7 @@ const NavbarComponent = () => {
             </Nav.Link>
             {user ? (
               <>
+                <Nav.Link as={Link} to="/orders" className="me-3">Orders</Nav.Link>
                 <Navbar.Text className="me-3 text-light">Hi, {user.name}</Navbar.Text>
                 <Button variant="outline-light" size="sm" onClick={handleLogout}>Logout</Button>
               </>
