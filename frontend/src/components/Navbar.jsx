@@ -58,6 +58,7 @@ const NavbarComponent = () => {
                 {user.isAdmin && (
                   <NavDropdown title="Admin Panel" id="admin-nav-dropdown" className="me-3" menuVariant="dark">
                     <NavDropdown.Item as={Link} to="/admin/add-product">Add Product</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/admin/products">Manage Products</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/admin/orders">Manage Orders</NavDropdown.Item>
                   </NavDropdown>
                 )}

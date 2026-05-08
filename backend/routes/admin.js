@@ -39,6 +39,36 @@ router.post('/products', auth, adminAuth, async (req, res, next) => {
   }
 });
 
+// Update a product (Admin only)
+router.put('/products/:id', auth, adminAuth, async (req, res, next) => {
+  try {
+    const product = await Product.findByIdAndUpdate(
+      req.params.id, 
+      { $set: req.body }, 
+      { new: true }
+    );
+    if (!product) {
+      return res.status(404).json({ msg: 'Product not found' });
+    }
+    res.json(product);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Delete a product (Admin only)
+router.delete('/products/:id', auth, adminAuth, async (req, res, next) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) {
+      return res.status(404).json({ msg: 'Product not found' });
+    }
+    res.json({ msg: 'Product deleted successfully' });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Get all orders (Admin only)
 router.get('/orders', auth, adminAuth, async (req, res, next) => {
   try {
