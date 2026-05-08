@@ -85,19 +85,19 @@ const OrderConfirmation = () => {
                 {order.products.map((item, idx) => (
                   <ListGroup.Item key={idx} className="px-0 py-3 border-bottom border-secondary-subtle d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center">
-                      <img src={item.product.images[0] || 'https://via.placeholder.com/50'} alt="product" style={{ width: '60px', height: '60px', objectFit: 'cover' }} className="rounded me-3" />
+                      <img src={item.product.images[0] || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100'} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100'; }} alt="product" style={{ width: '60px', height: '60px', objectFit: 'cover' }} className="rounded me-3 shadow-sm" />
                       <div>
                         <h6 className="mb-1">{item.product.name}</h6>
                         <span className="text-muted small">Qty: {item.quantity}</span>
                       </div>
                     </div>
-                    <span className="fw-semibold">${(item.priceAtPurchase * item.quantity).toFixed(2)}</span>
+                    <span className="fw-semibold">₹{(item.priceAtPurchase * item.quantity).toFixed(2)}</span>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
               <div className="d-flex justify-content-between align-items-center mt-4">
                 <h5 className="fw-bold mb-0">Total Amount</h5>
-                <h4 className="fw-bold mb-0">${order.totalAmount.toFixed(2)}</h4>
+                <h4 className="fw-bold mb-0">₹{order.totalAmount.toFixed(2)}</h4>
               </div>
             </Card.Body>
           </Card>

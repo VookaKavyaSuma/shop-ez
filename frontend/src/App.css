@@ -1,10 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f8f9fa;
-  color: #212529;
+  background-color: #fafafa;
+  color: #1a1a1a;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, .brand-font {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Premium Form Inputs */
+.premium-input {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+}
+.premium-input:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 0.2rem rgba(26, 26, 26, 0.1);
+  outline: none;
 }
 
 /* Animations */
@@ -99,6 +117,14 @@ body {
   }
   .category-card {
     height: 150px !important;
+  }
+  .sticky-bottom-mobile {
+    position: sticky;
+    bottom: 0;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    background-color: #fdfdfd;
+    z-index: 1000;
   }
 }
 

@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Spinner, Card } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Spinner, Card, Button } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [adminData, setAdminData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get('search') || '';
+  const categoryQuery = queryParams.get('category') || '';
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const params = {};
+        if (searchQuery) params.search = searchQuery;
+        if (categoryQuery) params.category = categoryQuery;
+
         const [productsRes, adminRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/products'),
+          axios.get('http://localhost:5000/api/products', { params }),
           axios.get('http://localhost:5000/api/admin')
         ]);
         setProducts(productsRes.data);
@@ -24,7 +35,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [searchQuery, categoryQuery]);
 
   if (loading) {
     return (
@@ -49,8 +60,13 @@ const Home = () => {
           }}
         >
           <div className="px-4">
-            <h1 className="display-3 fw-bold mb-3 animate-fade-in-up">Discover Your Style</h1>
+            <h1 className="display-3 fw-bold mb-3 animate-fade-in-up brand-font">Discover Your Style</h1>
             <p className="lead mb-4 animate-fade-in-up delay-1">Explore our exclusive collections and find exactly what you need.</p>
+            <div className="animate-fade-in-up delay-1">
+              <Button variant="light" size="lg" className="rounded-pill px-5 py-3 fw-bold text-uppercase shadow-lg" onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}>
+                Shop Now
+              </Button>
+            </div>
           </div>
         </div>
       )}
@@ -63,8 +79,17 @@ const Home = () => {
             <Row className="g-4">
               {adminData.categories.map((category, idx) => (
                 <Col md={4} key={idx}>
-                  <Card className="category-card border-0 text-white overflow-hidden shadow-sm" style={{ height: '200px', borderRadius: '15px' }}>
-                    <Card.Img src={category.image || 'https://via.placeholder.com/500x300'} alt={category.name} className="h-100 object-fit-cover category-image" />
+                  <Card 
+                    className="category-card border-0 text-white overflow-hidden shadow-sm" 
+                    style={{ height: '200px', borderRadius: '15px', cursor: 'pointer' }}
+                    onClick={() => navigate(`/?category=${encodeURIComponent(category.name)}`)}
+                  >
+                    <Card.Img 
+                      src={category.image || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=500'} 
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=500'; }}
+                      alt={category.name} 
+                      className="h-100 object-fit-cover category-image" 
+                    />
                     <Card.ImgOverlay className="d-flex flex-column justify-content-end bg-gradient-dark">
                       <Card.Title className="fs-4 fw-bold mb-0">{category.name}</Card.Title>
                     </Card.ImgOverlay>
@@ -77,7 +102,14 @@ const Home = () => {
 
         {/* Product Catalog */}
         <section>
-          <h2 className="mb-4 fw-bold">Featured Products</h2>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="fw-bold mb-0 brand-font">
+              {searchQuery ? `Search Results for "${searchQuery}"` : categoryQuery ? `${categoryQuery} Collection` : 'Featured Products'}
+            </h2>
+            {(searchQuery || categoryQuery) && (
+              <Button variant="outline-dark" size="sm" className="rounded-pill" onClick={() => navigate('/')}>Clear Filters</Button>
+            )}
+          </div>
           <Row className="g-4">
             {products.map(product => (
               <Col xs={12} sm={6} md={4} lg={3} key={product._id}>
