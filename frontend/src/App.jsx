@@ -8,6 +8,8 @@ import OrderConfirmation from './pages/OrderConfirmation';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Orders from './pages/Orders';
+import AddProduct from './pages/AddProduct';
+import ManageOrders from './pages/ManageOrders';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -25,6 +27,8 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation/:id" element={<OrderConfirmation />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/admin/add-product" element={<AddProduct />} />
+            <Route path="/admin/orders" element={<ManageOrders />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

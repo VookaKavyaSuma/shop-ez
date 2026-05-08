@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 const auth = require('../middleware/auth');
 
 // Get all products (with optional search and category filters)
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const { search, category } = req.query;
     let query = {};
@@ -23,13 +23,12 @@ router.get('/', async (req, res) => {
     const products = await Product.find(query);
     res.json(products);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    next(err);
   }
 });
 
 // Get product by id
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).populate('reviews.user', 'name');
     if (!product) {
@@ -37,16 +36,16 @@ router.get('/:id', async (req, res) => {
     }
     res.json(product);
   } catch (err) {
-    console.error(err.message);
     if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Product not found' });
+      err.statusCode = 404;
+      err.message = 'Product not found';
     }
-    res.status(500).send('Server Error');
+    next(err);
   }
 });
 
 // Add a review
-router.post('/:id/reviews', auth, async (req, res) => {
+router.post('/:id/reviews', auth, async (req, res, next) => {
   const { rating, comment } = req.body;
   try {
     const product = await Product.findById(req.params.id);
@@ -74,8 +73,7 @@ router.post('/:id/reviews', auth, async (req, res) => {
     const updatedProduct = await Product.findById(req.params.id).populate('reviews.user', 'name');
     res.json(updatedProduct);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    next(err);
   }
 });
 

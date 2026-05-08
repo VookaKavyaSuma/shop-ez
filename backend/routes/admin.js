@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admin');
+const Product = require('../models/Product');
+const Order = require('../models/Order');
+const auth = require('../middleware/auth');
+const adminAuth = require('../middleware/adminAuth');
 
 // Get banner and categories
 router.get('/', async (req, res) => {
@@ -20,8 +24,48 @@ router.get('/', async (req, res) => {
     }
     res.json(adminData);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    next(err);
+  }
+});
+
+// Add a new product (Admin only)
+router.post('/products', auth, adminAuth, async (req, res, next) => {
+  try {
+    const newProduct = new Product(req.body);
+    const product = await newProduct.save();
+    res.status(201).json(product);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Get all orders (Admin only)
+router.get('/orders', auth, adminAuth, async (req, res, next) => {
+  try {
+    const orders = await Order.find()
+      .sort({ createdAt: -1 })
+      .populate('user', 'name email')
+      .populate('products.product');
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Update order status (Admin only)
+router.put('/orders/:id/status', auth, adminAuth, async (req, res, next) => {
+  try {
+    const { status } = req.body;
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ msg: 'Order not found' });
+    }
+    
+    order.status = status;
+    await order.save();
+    res.json(order);
+  } catch (err) {
+    next(err);
   }
 });
 

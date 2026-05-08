@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Navbar, Nav, Container, Badge, Button, Form } from 'react-bootstrap';
+import { Navbar, Nav, Container, Badge, Button, Form, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
@@ -55,6 +55,12 @@ const NavbarComponent = () => {
             {user ? (
               <>
                 <Nav.Link as={Link} to="/orders" className="me-3">Orders</Nav.Link>
+                {user.isAdmin && (
+                  <NavDropdown title="Admin Panel" id="admin-nav-dropdown" className="me-3" menuVariant="dark">
+                    <NavDropdown.Item as={Link} to="/admin/add-product">Add Product</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/admin/orders">Manage Orders</NavDropdown.Item>
+                  </NavDropdown>
+                )}
                 <Navbar.Text className="me-3 text-light">Hi, {user.name}</Navbar.Text>
                 <Button variant="outline-light" size="sm" onClick={handleLogout}>Logout</Button>
               </>
