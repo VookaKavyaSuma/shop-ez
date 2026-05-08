@@ -39,6 +39,38 @@ const seedProducts = [
     discount: 20,
     category: "Fashion",
     images: ["https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=500"]
+  },
+  {
+    name: "Ceramic Coffee Mug Set",
+    description: "Start your day right with this beautiful set of 4 hand-crafted ceramic mugs. Microwave and dishwasher safe.",
+    price: 35.00,
+    discount: 0,
+    category: "Home",
+    images: ["https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=500"]
+  },
+  {
+    name: "Modern Table Lamp",
+    description: "Illuminate your space with this minimalist, modern table lamp. Features adjustable brightness and warm LED light.",
+    price: 65.00,
+    discount: 5,
+    category: "Home",
+    images: ["https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=500"]
+  },
+  {
+    name: "Plush Throw Blanket",
+    description: "Cozy up with this ultra-soft, plush throw blanket. Perfect for your sofa or bed. Available in multiple colors.",
+    price: 45.00,
+    discount: 10,
+    category: "Home",
+    images: ["https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?auto=format&fit=crop&w=500"]
+  },
+  {
+    name: "Ergonomic Office Chair",
+    description: "Work in comfort with this ergonomic office chair featuring lumbar support, breathable mesh, and adjustable height.",
+    price: 199.00,
+    discount: 15,
+    category: "Home",
+    images: ["https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=500"]
   }
 ];
 
