@@ -19,7 +19,7 @@ const Orders = () => {
           navigate('/login');
           return;
         }
-        const res = await axios.get('http://localhost:5000/api/orders', {
+        const res = await axios.get('https://shop-ez-q1o8.onrender.com/api/orders', {
           headers: { 'x-auth-token': token }
         });
         setOrders(res.data);
@@ -49,7 +49,7 @@ const Orders = () => {
     setShowModal(false);
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/orders/${selectedOrderId}`, {
+      await axios.delete(`https://shop-ez-q1o8.onrender.com/api/orders/${selectedOrderId}`, {
         headers: { 'x-auth-token': token }
       });
       setOrders(orders.filter(order => order._id !== selectedOrderId));

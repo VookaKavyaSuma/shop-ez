@@ -49,7 +49,7 @@ const AddProduct = () => {
         images: formData.imageUrl ? [formData.imageUrl] : []
       };
 
-      await axios.post('http://localhost:5000/api/admin/products', payload, {
+      await axios.post('https://shop-ez-q1o8.onrender.com/api/admin/products', payload, {
         headers: { 'x-auth-token': token }
       });
       

@@ -19,7 +19,7 @@ const ManageOrders = () => {
           navigate('/login');
           return;
         }
-        const res = await axios.get('http://localhost:5000/api/admin/orders', {
+        const res = await axios.get('https://shop-ez-q1o8.onrender.com/api/admin/orders', {
           headers: { 'x-auth-token': token }
         });
         setOrders(res.data);
@@ -58,7 +58,7 @@ const ManageOrders = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/admin/orders/${orderId}/status`, { status: newStatus }, {
+      await axios.put(`https://shop-ez-q1o8.onrender.com/api/admin/orders/${orderId}/status`, { status: newStatus }, {
         headers: { 'x-auth-token': token }
       });
       setOrders(orders.map(order => order._id === orderId ? { ...order, status: newStatus } : order));

@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
     const fetchCart = async () => {
       if (token && user) {
         try {
-          const res = await axios.get('http://localhost:5000/api/cart');
+          const res = await axios.get('https://shop-ez-q1o8.onrender.com/api/cart');
           setCart(res.data);
         } catch (err) {
           console.error('Error fetching cart', err);
@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (productId, quantity = 1) => {
     if (!token) return toast.error('Please login to add items to cart');
     try {
-      const res = await axios.post('http://localhost:5000/api/cart/add', { productId, quantity });
+      const res = await axios.post('https://shop-ez-q1o8.onrender.com/api/cart/add', { productId, quantity });
       setCart(res.data);
       toast.success('Added to cart!');
     } catch (err) {
@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async (productId) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/cart/remove', { productId });
+      const res = await axios.post('https://shop-ez-q1o8.onrender.com/api/cart/remove', { productId });
       setCart(res.data);
     } catch (err) {
       console.error('Error removing from cart', err);
@@ -47,7 +47,7 @@ export const CartProvider = ({ children }) => {
 
   const checkout = async (shippingAddress, paymentMethod) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/orders', { shippingAddress, paymentMethod });
+      const res = await axios.post('https://shop-ez-q1o8.onrender.com/api/orders', { shippingAddress, paymentMethod });
       // Reset cart locally
       setCart({ ...cart, products: [] });
       return res.data;

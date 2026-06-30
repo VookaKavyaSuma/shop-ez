@@ -23,8 +23,8 @@ const Home = () => {
         if (categoryQuery) params.category = categoryQuery;
 
         const [productsRes, adminRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/products', { params }),
-          axios.get('http://localhost:5000/api/admin')
+          axios.get('https://shop-ez-q1o8.onrender.com/api/products', { params }),
+          axios.get('https://shop-ez-q1o8.onrender.com/api/admin')
         ]);
         setProducts(productsRes.data);
         setAdminData(adminRes.data);

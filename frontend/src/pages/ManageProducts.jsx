@@ -30,7 +30,7 @@ const ManageProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get('https://shop-ez-q1o8.onrender.com/api/products');
       setProducts(res.data);
     } catch (err) {
       console.error('Error fetching products', err);
@@ -91,7 +91,7 @@ const ManageProducts = () => {
         images: formData.imageUrl ? [formData.imageUrl] : []
       };
 
-      const res = await axios.put(`http://localhost:5000/api/admin/products/${editingProduct._id}`, payload, {
+      const res = await axios.put(`https://shop-ez-q1o8.onrender.com/api/admin/products/${editingProduct._id}`, payload, {
         headers: { 'x-auth-token': token }
       });
       
@@ -112,7 +112,7 @@ const ManageProducts = () => {
     
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/admin/products/${id}`, {
+      await axios.delete(`https://shop-ez-q1o8.onrender.com/api/admin/products/${id}`, {
         headers: { 'x-auth-token': token }
       });
       setProducts(products.filter(p => p._id !== id));

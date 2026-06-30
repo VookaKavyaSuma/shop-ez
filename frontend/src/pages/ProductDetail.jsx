@@ -22,7 +22,7 @@ const ProductDetail = () => {
     e.preventDefault();
     if (!token) return toast.error('Please login to leave a review.');
     try {
-      const res = await axios.post(`http://localhost:5000/api/products/${id}/reviews`, reviewData);
+      const res = await axios.post(`https://shop-ez-q1o8.onrender.com/api/products/${id}/reviews`, reviewData);
       setProduct(res.data);
       setShowReviewForm(false);
       setReviewData({ rating: 5, comment: '' });
@@ -35,7 +35,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const res = await axios.get(`https://shop-ez-q1o8.onrender.com/api/products/${id}`);
         setProduct(res.data);
       } catch (err) {
         console.error('Error fetching product', err);
